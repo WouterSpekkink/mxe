@@ -28,6 +28,7 @@ define $(PKG)_BUILD
         --build="`config.guess`" \
         --enable-static \
         --disable-shared \
+	--disable-rpath \
         --prefix='$(PREFIX)/$(TARGET)' \
         --disable-nls \
         --disable-guile \

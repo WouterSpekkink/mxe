@@ -29,7 +29,6 @@ define $(PKG)_BUILD
             -device-option PKG_CONFIG='${TARGET}-pkg-config' \
             -force-pkg-config \
             -release \
-            -static \
             -prefix '$(PREFIX)/$(TARGET)/qt5' \
             -opengl desktop \
             -no-glib \
@@ -45,6 +44,7 @@ define $(PKG)_BUILD
             -system-libjpeg \
             -system-sqlite \
             -system-pcre \
+            -no-fontconfig \
             -openssl-linked \
             -dbus-linked \
             $(shell [ `uname` == 'Darwin' ] && echo -no-c++11) \

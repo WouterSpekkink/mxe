@@ -22,8 +22,17 @@ define $(PKG)_BUILD
         CC='$(TARGET)-gcc' \
         AR='$(TARGET)-ar' \
         RANLIB='$(TARGET)-ranlib'
+    $(MAKE) -C '$(1)' -f Makefile-libbz2_so -j '$(JOBS)' \
+        PREFIX='$(PREFIX)/$(TARGET)' \
+        CC='$(TARGET)-gcc' \
+        AR='$(TARGET)-ar' \
+        RANLIB='$(TARGET)-ranlib'
     $(INSTALL) -d '$(PREFIX)/$(TARGET)/lib'
     $(INSTALL) -m644 '$(1)/libbz2.a' '$(PREFIX)/$(TARGET)/lib/'
     $(INSTALL) -d '$(PREFIX)/$(TARGET)/include'
     $(INSTALL) -m644 '$(1)/bzlib.h' '$(PREFIX)/$(TARGET)/include/'
+    $(INSTALL) -d '$(PREFIX)/$(TARGET)/bin'
+    $(INSTALL) -m644 '$(1)/bz2-1.dll' '$(PREFIX)/$(TARGET)/bin/'
+#libtool won't find it unless we rename to libbz2.dll.a (see https://lists.fedoraproject.org/pipermail/mingw/2008-November/000146.html)
+    $(INSTALL) -m644 '$(1)/bz2.dll.a' '$(PREFIX)/$(TARGET)/lib/libbz2.dll.a'
 endef

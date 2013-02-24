@@ -17,8 +17,11 @@ define $(PKG)_UPDATE
 endef
 
 define $(PKG)_BUILD
-    cd '$(1)' && CHOST='$(TARGET)' ./configure \
-        --prefix='$(PREFIX)/$(TARGET)' \
-        --static
-    $(MAKE) -C '$(1)' -j '$(JOBS)' install
+    $(MAKE) -C '$(1)' -f win32/Makefile.gcc -j '$(JOBS)' install \
+	DESTDIR='$(PREFIX)/$(TARGET)' \
+	PREFIX='$(TARGET)-' \
+	INCLUDE_PATH='/include' \
+	LIBRARY_PATH='/lib' \
+	BINARY_PATH='/bin' \
+	SHARED_MODE=1
 endef
